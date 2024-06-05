@@ -1,0 +1,28 @@
+name: DotNet Build Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.6'
+
+    - name: Setting Project
+      run: |
+        dotnet restore
+        dotnet build
+        echo "Action executada com sucesso"
